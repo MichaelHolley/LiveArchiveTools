@@ -1,0 +1,22 @@
+{
+  "name": "LivearchiveTools",
+  "description": "Improve your Livearchive experience with this browser extension.",
+  "version": "0.1",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://livearchive.net/player*"
+      ],
+      "js": [
+        "player.js"
+      ]
+    }
+  ]
+}

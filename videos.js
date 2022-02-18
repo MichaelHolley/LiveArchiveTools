@@ -4,7 +4,12 @@ var latestVideos = document.getElementsByClassName('video-item-latest');
 var vodSettings = JSON.parse(localStorage.getItem("vod_player_settings"));
 var positions = vodSettings.positions;
 
-setViewed();
+chrome.storage.sync.get('useViewedIndicator', ({ useViewedIndicator }) => {
+  if (useViewedIndicator) {
+    setViewed();
+  }
+});
+
 var latestVideosDictionary = new Object();
 function setViewed() {
   if (typeof latestVideos !== "undefined" && latestVideos.length > 0) {
@@ -13,13 +18,13 @@ function setViewed() {
     }
 
     if (positions && Object.keys(positions).length > 0) {
-      chrome.storage.sync.get('videoWatchedColor', ({ videoWatchedColor }) => {
+      chrome.storage.sync.get('indicatorColor', ({ indicatorColor }) => {
         Object.keys(positions).forEach(key => {
-          latestVideosDictionary[key].getElementsByClassName('video-item-views')[0].style.color = videoWatchedColor;
+          latestVideosDictionary[key].getElementsByClassName('video-item-views')[0].style.color = indicatorColor;
 
           for (let pV of popularVideos) {
             if (getVideoIdByAnkerElement(pV) === key) {
-              pV.getElementsByClassName('video-item-views')[0].style.color = videoWatchedColor;
+              pV.getElementsByClassName('video-item-views')[0].style.color = indicatorColor;
             }
           }
         });

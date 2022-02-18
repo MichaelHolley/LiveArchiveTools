@@ -1,7 +1,11 @@
+const useVolumeWheel = true;
 const volumeSteps = 0.05;
-const videoWatchedColor = '#02A348'
+const useViewedIndicator = true;
+const indicatorColor = '#02A348'
 
 chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.sync.set({ useVolumeWheel });
   chrome.storage.sync.set({ volumeSteps });
-  chrome.storage.sync.set({ videoWatchedColor });
+  chrome.storage.sync.set({ useViewedIndicator });
+  chrome.storage.sync.set({ indicatorColor });
 });

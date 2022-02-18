@@ -1,0 +1,65 @@
+:root {
+  --purple: #9a00ff;
+  --red: #ff002b;
+  --dark-blue: #091021;
+  --light-blue: #27314e;
+}
+
+body {
+  min-width: 300px;
+  background: transparent
+    linear-gradient(78deg, var(--purple) 0%, var(--red) 100%) 0% 0% no-repeat;
+  font-size: 0.8em;
+  padding: 1px;
+  margin: 3px;
+}
+
+.container {
+  background-color: var(--dark-blue);
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+}
+
+h3 {
+  margin-bottom: 5px;
+  font-family: myriad-pro, sans-serif;
+}
+
+.divider {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--light-blue);
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
+}
+
+.row > input {
+  margin-left: auto;
+}
+
+tr > td {
+  padding: 5px;
+}
+
+tr > td:last-child {
+  float: right;
+}
+
+input[type="color"] {
+  -webkit-appearance: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+}

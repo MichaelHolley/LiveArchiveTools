@@ -19,14 +19,18 @@ playerDiv.addEventListener('wheel', (e) => {
 });
 
 function handleWheelEvent(e) {
-  chrome.storage.sync.get('volumeSteps', ({ volumeSteps }) => {
-    if (e.deltaY < 0) {
-      videoPlayer.volume = videoPlayer.volume + volumeSteps <= 1 ? videoPlayer.volume + volumeSteps : 1;
-    } else {
-      videoPlayer.volume = videoPlayer.volume - volumeSteps >= 0 ? videoPlayer.volume - volumeSteps : 0;
-    }
+  chrome.storage.sync.get('useVolumeWheel', ({ useVolumeWheel }) => {
+    if (useVolumeWheel === true) {
+      chrome.storage.sync.get('volumeSteps', ({ volumeSteps }) => {
+        if (e.deltaY < 0) {
+          videoPlayer.volume = videoPlayer.volume + volumeSteps <= 1 ? videoPlayer.volume + volumeSteps : 1;
+        } else {
+          videoPlayer.volume = videoPlayer.volume - volumeSteps >= 0 ? videoPlayer.volume - volumeSteps : 0;
+        }
 
-    displayVolumeLevel(videoPlayer.volume);
+        displayVolumeLevel(videoPlayer.volume);
+      });
+    }
   });
 }
 

@@ -5,6 +5,7 @@ const useVolumeWheelInput = document.getElementById('useVolumeWheel');
 const volumeStepsInput = document.getElementById('volumeSteps');
 const useViewedIndicatorInput = document.getElementById('useViewedIndicator');
 const indicatorColorInput = document.getElementById('indicatorColor');
+const hideTimestampsInput = document.getElementById('hideTimestamps');
 
 /*
 INITIAL VALUES
@@ -25,6 +26,10 @@ chrome.storage.sync.get('indicatorColor', ({ indicatorColor }) => {
   indicatorColorInput.value = indicatorColor;
 });
 
+chrome.storage.sync.get('hideTimestamps', ({ hideTimestamps }) => {
+  hideTimestampsInput.checked = hideTimestamps;
+});
+
 /*
 LISTENERS
 */
@@ -42,4 +47,8 @@ useViewedIndicator.addEventListener('change', (e) => {
 
 indicatorColorInput.addEventListener('change', (e) => {
   chrome.storage.sync.set({ indicatorColor: e.target.value });
+});
+
+hideTimestampsInput.addEventListener('change', (e) => {
+  chrome.storage.sync.set({ hideTimestamps: e.target.checked });
 });

@@ -1,3 +1,6 @@
+/*
+VIDEO-PLAYER
+*/
 var playerWrapper = document.getElementsByClassName('player-wrapper')[0];
 var playerDiv = document.getElementById('videoPlayer');
 var videoPlayer = document.getElementsByTagName('video')[0];
@@ -45,3 +48,39 @@ displayVolumeLevel = (volume) => {
 hideVolumeLevel = () => {
   volumeLevelDisplay.style.opacity = '0%';
 }
+
+/*
+CHAT
+*/
+const chatMessagesContainer = document.getElementById('chatmessages');
+// Options for the observer (which mutations to observe)
+var config = { attributes: false, childList: true, subtree: false };
+
+// Callback function to execute when mutations are observed
+var mutationCallback = function (mutationsList, observer) {
+  for (var mutation of mutationsList) {
+    if (mutation.type == 'childList') {
+      chrome.storage.sync.get('hideTimestamps', ({ hideTimestamps }) => {
+        let messages = document.getElementsByClassName('chatmessage');
+        for (let m of messages) {
+          let timedisplay = m.getElementsByClassName('pinlinetime')[0];
+          
+          if (hideTimestamps) {
+            m.style.marginLeft = '0px';
+            timedisplay.style.display = 'none';
+          } else {
+            m.style.marginLeft = '66px';
+            timedisplay.style.display = 'block';
+          }
+        }
+      });
+    }
+  }
+}
+
+// Create an observer instance linked to the callback function
+var observer = new MutationObserver(mutationCallback);
+
+// Start observing the target node for configured mutations
+observer.observe(chatMessagesContainer, config);
+

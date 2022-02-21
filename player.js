@@ -64,13 +64,15 @@ var mutationCallback = function (mutationsList, observer) {
         let messages = document.getElementsByClassName('chatmessage');
         for (let m of messages) {
           let timedisplay = m.getElementsByClassName('pinlinetime')[0];
-          
-          if (hideTimestamps) {
-            m.style.marginLeft = '0px';
-            timedisplay.style.display = 'none';
-          } else {
-            m.style.marginLeft = '66px';
-            timedisplay.style.display = 'block';
+
+          if (!!timedisplay) {
+            if (hideTimestamps) {
+              m.style.marginLeft = '0px';
+              timedisplay.style.display = 'none';
+            } else {
+              m.style.marginLeft = '66px';
+              timedisplay.style.display = 'block';
+            }
           }
         }
       });

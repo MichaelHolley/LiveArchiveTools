@@ -61,16 +61,16 @@ var mutationCallback = function (mutationsList, observer) {
   for (var mutation of mutationsList) {
     if (mutation.type == 'childList') {
       chrome.storage.sync.get('hideTimestamps', ({ hideTimestamps }) => {
-        if (hideTimestamps) {
-          let messages = document.getElementsByClassName('chatmessage');
-
-          for (let m of messages) {
+        let messages = document.getElementsByClassName('chatmessage');
+        for (let m of messages) {
+          let timedisplay = m.getElementsByClassName('pinlinetime')[0];
+          
+          if (hideTimestamps) {
             m.style.marginLeft = '0px';
-
-            let timedisplay = m.getElementsByClassName('pinlinetime')[0];
-            if (!!timedisplay) {
-              timedisplay.remove();
-            }
+            timedisplay.style.display = 'none';
+          } else {
+            m.style.marginLeft = '66px';
+            timedisplay.style.display = 'block';
           }
         }
       });

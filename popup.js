@@ -6,6 +6,7 @@ const volumeStepsInput = document.getElementById('volumeSteps');
 const useViewedIndicatorInput = document.getElementById('useViewedIndicator');
 const indicatorColorInput = document.getElementById('indicatorColor');
 const hideTimestampsInput = document.getElementById('hideTimestamps');
+const blurVideoImagesInput = document.getElementById('blurVideoImages');
 
 /*
 INITIAL VALUES
@@ -30,6 +31,10 @@ chrome.storage.sync.get('hideTimestamps', ({ hideTimestamps }) => {
   hideTimestampsInput.checked = hideTimestamps;
 });
 
+chrome.storage.sync.get('blurVideoImages', ({ blurVideoImages }) => {
+  blurVideoImagesInput.checked = blurVideoImages;
+});
+
 /*
 LISTENERS
 */
@@ -51,4 +56,9 @@ indicatorColorInput.addEventListener('change', (e) => {
 
 hideTimestampsInput.addEventListener('change', (e) => {
   chrome.storage.sync.set({ hideTimestamps: e.target.checked });
+});
+
+blurVideoImagesInput.addEventListener('change', (e) => {
+  console.log(e.target.checked);
+  chrome.storage.sync.set({ blurVideoImages: e.target.checked });
 });

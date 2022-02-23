@@ -4,6 +4,15 @@ var latestVideos = document.getElementsByClassName('video-item-latest');
 var vodSettings = JSON.parse(localStorage.getItem("vod_player_settings"));
 var positions = vodSettings.positions;
 
+const cycleTime = 100;
+
+/*
+VIEWED-INDICATOR
+*/
+function getVideoIdByAnkerElement(element) {
+  return element.href.split('player?id=')[1];
+}
+
 chrome.storage.sync.get('useViewedIndicator', ({ useViewedIndicator }) => {
   if (useViewedIndicator) {
     setViewed();
@@ -31,11 +40,27 @@ function setViewed() {
       });
     }
   } else {
-    console.log("Videos not yet loaded");
-    setTimeout(setViewed, 250);
+    setTimeout(setViewed, cycleTime);
   }
 }
 
-function getVideoIdByAnkerElement(element) {
-  return element.href.split('player?id=')[1];
+
+/*
+BLUR PREVIEW-IMAGES
+*/
+chrome.storage.sync.get('blurVideoImages', ({ blurVideoImages }) => {
+  if (blurVideoImages) {
+    setBlurred();
+  }
+});
+
+function setBlurred() {
+  if (typeof latestVideos !== "undefined" && latestVideos.length > 0) {
+    let previews = document.getElementsByClassName("video-image");
+    for (let img of previews) {
+      img.style.filter = 'blur(5px)'
+    }
+  } else {
+    setTimeout(setBlurred, cycleTime);
+  }
 }

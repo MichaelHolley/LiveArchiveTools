@@ -7,6 +7,7 @@ const useViewedIndicatorInput = document.getElementById('useViewedIndicator');
 const indicatorColorInput = document.getElementById('indicatorColor');
 const hideTimestampsInput = document.getElementById('hideTimestamps');
 const blurVideoImagesInput = document.getElementById('blurVideoImages');
+const hidePopularVideosInput = document.getElementById('hidePopularVideos');
 
 /*
 INITIAL VALUES
@@ -35,6 +36,10 @@ chrome.storage.sync.get('blurVideoImages', ({ blurVideoImages }) => {
   blurVideoImagesInput.checked = blurVideoImages;
 });
 
+chrome.storage.sync.get('hidePopularVideos', ({ hidePopularVideos }) => {
+  hidePopularVideosInput.checked = hidePopularVideos;
+});
+
 /*
 LISTENERS
 */
@@ -61,4 +66,9 @@ hideTimestampsInput.addEventListener('change', (e) => {
 blurVideoImagesInput.addEventListener('change', (e) => {
   console.log(e.target.checked);
   chrome.storage.sync.set({ blurVideoImages: e.target.checked });
+});
+
+hidePopularVideosInput.addEventListener('change', (e) => {
+  console.log(e.target.checked);
+  chrome.storage.sync.set({ hidePopularVideos: e.target.checked });
 });

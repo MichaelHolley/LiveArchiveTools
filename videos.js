@@ -64,3 +64,19 @@ function setBlurred() {
     setTimeout(setBlurred, cycleTime);
   }
 }
+
+/*
+HIDE POPULAR VIDEOS
+*/
+chrome.storage.sync.get('hidePopularVideos', ({ hidePopularVideos }) => {
+  if (hidePopularVideos) {
+    let popularHeader = document.getElementsByClassName('h2-black title-left')[0];
+    popularHeader.remove();
+
+    let popularList = document.getElementById('video-list-popular');
+    popularList.parentElement.remove();
+
+    let latestList = document.getElementById('video-latest');
+    latestList.style.marginTop = '0px'
+  }
+});

@@ -1,6 +1,6 @@
 {
-  "name": "LivearchiveTools",
-  "description": "Improve your Livearchive experience with this browser extension.",
+  "name": "LiveArchiveTools",
+  "description": "Improve your LiveArchive experience with this browser extension.",
   "version": "0.1",
   "manifest_version": 3,
   "background": {
@@ -31,5 +31,10 @@
       ],
       "run_at": "document_end"
     }
-  ]
+  ],
+  "icons": {
+    "16": "icon/icon16.png",
+    "48": "icon/icon48.png",
+    "128": "icon/icon128.png"
+  }
 }

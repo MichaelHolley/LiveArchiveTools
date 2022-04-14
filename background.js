@@ -4,7 +4,7 @@ const useViewedIndicator = true;
 const indicatorColor = '#02A348';
 const hideTimestamps = true;
 const blurVideoImages = false;
-const hidePopularVideos = false;
+const hidePopularVideos = true;
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.set({ useVolumeWheel });

@@ -1,11 +1,11 @@
 /*
 VIDEO-PLAYER
 */
-var playerWrapper = document.getElementsByClassName('player-wrapper')[0];
-var playerDiv = document.getElementById('videoPlayer');
-var videoPlayer = document.getElementsByTagName('video')[0];
+const playerWrapper = document.getElementsByClassName('player-wrapper')[0];
+const playerDiv = document.getElementById('videoPlayer');
+const videoPlayer = document.getElementsByTagName('video')[0];
 
-var volumeLevelDisplay = document.createElement("div");
+const volumeLevelDisplay = document.createElement("div");
 volumeLevelDisplay.id = 'volumeLevelDisplay';
 volumeLevelDisplay.style.display = 'block';
 volumeLevelDisplay.style.position = 'absolute';
@@ -17,22 +17,30 @@ volumeLevelDisplay.style.transition = 'opacity 0.5s ease-in-out'
 playerWrapper.appendChild(volumeLevelDisplay);
 var volumeLevelDisplayTimeout;
 
-playerDiv.addEventListener('wheel', (e) => {
-  handleWheelEvent(e);
+videoPlayer.addEventListener('volumechange', (event) => {
+  displayVolumeLevel(videoPlayer.volume);
+});
+
+chrome.storage.sync.get('useVolumeWheel', ({ useVolumeWheel }) => {
+  if (useVolumeWheel === true) {
+    playerDiv.addEventListener('wheel', (e) => {
+      handleWheelEvent(e);
+    });
+
+    setTimeout(() => {
+      document.getElementsByClassName('vjs-volume-panel')[0].addEventListener('wheel', (e) => {
+        handleWheelEvent(e);
+      });
+    }, 200);
+  }
 });
 
 function handleWheelEvent(e) {
-  chrome.storage.sync.get('useVolumeWheel', ({ useVolumeWheel }) => {
-    if (useVolumeWheel === true) {
-      chrome.storage.sync.get('volumeSteps', ({ volumeSteps }) => {
-        if (e.deltaY < 0) {
-          videoPlayer.volume = videoPlayer.volume + volumeSteps <= 1 ? videoPlayer.volume + volumeSteps : 1;
-        } else {
-          videoPlayer.volume = videoPlayer.volume - volumeSteps >= 0 ? videoPlayer.volume - volumeSteps : 0;
-        }
-
-        displayVolumeLevel(videoPlayer.volume);
-      });
+  chrome.storage.sync.get('volumeSteps', ({ volumeSteps }) => {
+    if (e.deltaY < 0) {
+      videoPlayer.volume = videoPlayer.volume + volumeSteps <= 1 ? videoPlayer.volume + volumeSteps : 1;
+    } else {
+      videoPlayer.volume = videoPlayer.volume - volumeSteps >= 0 ? videoPlayer.volume - volumeSteps : 0;
     }
   });
 }

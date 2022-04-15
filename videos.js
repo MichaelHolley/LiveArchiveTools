@@ -2,7 +2,7 @@ var popularVideos = document.getElementsByClassName('video-item-popular');
 var latestVideos = document.getElementsByClassName('video-item-latest');
 
 var vodSettings = JSON.parse(localStorage.getItem("vod_player_settings"));
-var positions = vodSettings.positions;
+var positions = vodSettings ? vodSettings.positions : undefined;
 
 const cycleTime = 100;
 

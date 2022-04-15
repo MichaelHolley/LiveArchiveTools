@@ -31,7 +31,7 @@ chrome.storage.sync.get('useVolumeWheel', ({ useVolumeWheel }) => {
       document.getElementsByClassName('vjs-volume-panel')[0].addEventListener('wheel', (e) => {
         handleWheelEvent(e);
       });
-    }, 200);
+    }, 500);
   }
 });
 
